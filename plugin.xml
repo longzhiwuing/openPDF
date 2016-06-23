@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-openPDF"
+		version="1.0.0">
+
+    <name>openPDF</name>
+    <description>Cordova openPDF Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,openPDF</keywords>
+
+	<engines>
+		<engine name="cordova" version=">=3.0.0"/>
+	</engines>
+  
+    <js-module src="www/openPDF.js" name="openPDF">
+        <clobbers target="openPDF" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <framework src="src/com/cecdata/cordova/openPDF/build.gradle" custom="true" type="gradleReference" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="openPDF">
+                <param name="android-package" value="com.cecdata.cordova.openPDF.OpenPDFPlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.cecdata.activities.PDFActivity" />
+        </config-file>
+		
+		<!--添加权限-->
+		<config-file target="AndroidManifest.xml" parent="/*">  
+            <uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        </config-file> 
+	
+		<!--编译-->
+        <source-file src="src/com/cecdata/cordova/openPDF/OpenPDFPlugin.java" target-dir="src/com/cecdata/cordova/openPDF"/>
+        <source-file src="src/com/cecdata/cordova/openPDF/FakeR.java" target-dir="src/com/cecdata/cordova/openPDF"/>
+        <source-file src="src/com/cecdata/activities/PDFActivity.java" target-dir="src/com/cecdata/activities"/>
+        <source-file src="src/com/cecdata/res/layout/activity_pdf.xml" target-dir="res/layout"/>
+
+    </platform>
+
+</plugin>
